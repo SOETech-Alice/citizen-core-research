@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizen Core — Civic Action Platform Research Report</title>
+<meta name="description" content="Independent market and compliance research on a decentralized civic action platform proposal: grassroots organizing, secure communications, legislative transparency, and campaign utility.">
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#0a0f1e;--surface:rgba(255,255,255,.04);--line:rgba(255,255,255,.09);
+ --txt:#e8eef8;--muted:#9aa7bd;--faint:#67748c;--cyan:#22d3ee;--gold:#f4c16c;
+ --ok:#34d399;--warn:#fbbf24;--bad:#f87171;--radius:16px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;
+ background:radial-gradient(900px 500px at 85% -10%,rgba(59,130,246,.14),transparent 60%),
+ radial-gradient(700px 400px at -10% 40%,rgba(34,211,238,.08),transparent 55%),var(--bg);
+ color:var(--txt);line-height:1.65;min-height:100vh}
+a{color:var(--cyan)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+section{padding:52px 0}
+.kicker{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);padding:6px 13px;border-radius:999px;margin-bottom:16px}
+h1{font-size:clamp(2rem,5vw,3rem);font-weight:900;letter-spacing:-.03em;line-height:1.08}
+h2{font-size:clamp(1.5rem,3.5vw,2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
+h3{font-size:1.02rem;font-weight:700}
+.lede{color:var(--muted);font-size:1.04rem;max-width:65ch}
+.small,.cite{font-size:.8rem;color:var(--faint)}
+header.site{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,15,30,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{max-width:1000px;margin:0 auto;padding:10px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:800;white-space:nowrap}
+.navlinks{display:flex;gap:2px;flex-wrap:wrap}
+.navlinks a{font-size:.8rem;font-weight:600;color:var(--muted);padding:8px 10px;border-radius:8px}
+.navlinks a:hover{color:var(--txt);background:var(--surface)}
+@media(max-width:880px){.navlinks{display:none}}
+#hero{padding:130px 0 50px}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.badge{font-size:.78rem;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--line);padding:7px 13px;border-radius:999px}
+.badge b{color:var(--txt)}
+.glass{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.glass p{color:var(--muted);font-size:.92rem;margin-top:8px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:880px){.grid-2,.grid-3{grid-template-columns:1fr}}
+.verdict{display:flex;gap:14px;align-items:flex-start;background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.3);border-radius:var(--radius);padding:22px 24px;margin-top:26px}
+.verdict .ic{font-size:1.4rem}
+.verdict b{color:var(--ok)}
+.verdict p{margin-top:6px;color:var(--muted);font-size:.94rem}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;text-align:center}
+.stat .n{font-size:1.9rem;font-weight:900;letter-spacing:-.03em}
+.stat .l{font-size:.74rem;font-weight:600;color:var(--muted);margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:880px){.stats{grid-template-columns:repeat(2,1fr)}}
+.note{display:flex;gap:12px;align-items:flex-start;border-radius:var(--radius);padding:18px 20px;margin-top:18px}
+.n-warn{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.3)}
+.n-bad{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.3)}
+.n-warn .ic{color:var(--warn)}.n-bad .ic{color:var(--bad)}
+.note p{color:var(--muted);font-size:.9rem;margin:0}
+.n-warn b{color:var(--warn)}.n-bad b{color:var(--bad)}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:.88rem}
+th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+td b{color:var(--txt)}
+.pill{display:inline-block;font-size:.66rem;font-weight:800;padding:3px 9px;border-radius:999px;letter-spacing:.05em;white-space:nowrap}
+.p-ok{color:var(--ok);background:rgba(52,211,153,.1)}
+.p-warn{color:var(--warn);background:rgba(251,191,36,.1)}
+.p-bad{color:var(--bad);background:rgba(248,113,113,.1)}
+ul.clean{list-style:none;margin-top:14px}
+ul.clean li{padding:9px 0 9px 26px;position:relative;color:var(--muted);font-size:.93rem;border-bottom:1px solid rgba(255,255,255,.05)}
+ul.clean li::before{content:'▸';position:absolute;left:4px;color:var(--cyan)}
+.num{font-size:1.6rem;font-weight:900;letter-spacing:-.02em}
+footer.site{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-size:.78rem;margin-top:40px}
+</style>
+</head>
+<body>
+<header class="site"><div class="nav">
+<div class="brand">CITIZEN CORE · Research Report</div>
+<nav class="navlinks">
+<a href="#overview">Overview</a><a href="#market">Market</a><a href="#pillars">Pillars</a>
+<a href="#compliance">Compliance</a><a href="#improvements">Improvement Options</a><a href="#verdict">Recommendation</a>
+</nav>
+</div></header>
+
+<main>
+<section id="hero"><div class="wrap">
+<span class="kicker">Independent Research &amp; Analysis · October 2026</span>
+<h1>Citizen Core:<br>Civic Action Platform <span style="color:var(--cyan)">Research Report</span></h1>
+<p class="lede" style="margin-top:16px">An independent assessment of a proposal for a decentralized civic action platform — grassroots organizing, secure communications, verified information, and campaign utility. This report covers the market landscape, compliance exposure, and where the strongest version of this idea lives.</p>
+<div class="badges">
+<span class="badge"><b>2 research legs</b> — market + compliance</span>
+<span class="badge"><b>30+ sources</b> tagged</span>
+<span class="badge"><b>13</b> items flagged for professional opinion</span>
+</div>
+</div></section>
+
+<section id="overview"><div class="wrap">
+<span class="kicker">01 · The concept</span>
+<h2>What the proposal envisions</h2>
+<p class="lede">A single independent stack combining three functional pillars: <b>decentralized action</b> (precinct mapping, canvassing telemetry, event coordination), <b>censorship-resistant communication</b> (forums, end-to-end encrypted messaging, verified organizer identity), and <b>verified information</b> (legislative tracking, voter guides, election-incident reporting) — with monetization through campaign SaaS, donation processing, and a merchant marketplace.</p>
+<div class="stats" style="margin-top:26px">
+<div class="stat"><div class="n">3</div><div class="l">functional pillars proposed</div></div>
+<div class="stat"><div class="n">$20–40M</div><div class="l">est. serviceable market / yr</div></div>
+<div class="stat"><div class="n">$0.5–2M</div><div class="l">realistic small-shop capture / cycle</div></div>
+<div class="stat"><div class="n">1–2</div><div class="l">pillars a newcomer can defend</div></div>
+</div>
+<p class="small" style="margin-top:14px">Figures from the market research leg; every hard claim source-tagged in the underlying dossier.</p>
+</div></section>
+
+<section id="market"><div class="wrap">
+<span class="kicker">02 · Market landscape</span>
+<h2>A real niche inside a graveyard of cautionary tales</h2>
+<p class="lede">The parallel-economy platform market is genuine but young and volatile. The pattern across failed comparables is consistent — and instructive.</p>
+<table>
+<thead><tr><th>Venture</th><th>What happened</th><th>The lesson</th></tr></thead>
+<tbody>
+<tr><td><b>Truth Social</b></td><td>~1–2M monthly users, declining 36–40% YoY; −$406M quarterly loss on $871K revenue</td><td>Audience without monetization engine = burn without return</td></tr>
+<tr><td><b>GETTR</b></td><td>Near-shutdown by 2024 after rapid launch collapse</td><td>Attention collapses after the news cycle; retention needs utility</td></tr>
+<tr><td><b>Gab</b></td><td>Full sovereign stack, capped at ~$2.5M/yr revenue</td><td>Owning everything ≠ earning anything</td></tr>
+<tr><td><b>Parler</b></td><td>Removed from app stores over moderation posture; never recovered</td><td>Distribution chokepoints kill platforms that ignore store rules</td></tr>
+<tr><td><b>PublicSquare</b></td><td><b>Selling its marketplace</b> after it produced $0.3–0.4M/quarter</td><td>The best-funded player exited the exact marketplace pillar this proposal relies on</td></tr>
+<tr><td><b>Rumble</b> <span class="pill p-ok">SUSTAINABLE</span></td><td>~$100M/yr revenue — as an infrastructure provider, not a social network</td><td>Sell the picks and shovels; don't mine the gold</td></tr>
+</tbody>
+</table>
+<p class="small" style="margin-top:14px">Six documented incumbent gaps remain in the grassroots-toolkit niche — but every failed comparable died of at least two of: chokepoint dependency, attention collapse, launch failure, undisciplined funding, no monetization, or absorption by X.</p>
+</div></section>
+
+<section id="pillars"><div class="wrap">
+<span class="kicker">03 · Pillar-by-pillar assessment</span>
+<h2>Where each idea actually stands</h2>
+<div class="grid-2" style="margin-top:22px">
+<div class="glass"><h3>Canvassing &amp; field toolkit <span class="pill p-ok">STRONG NICHE</span></h3><p>Incumbents are relationship-gated (voter-file access); a lean, modern canvass companion + route optimization is genuinely underserved. The campaign-SaaS tier has proven small-shop entry at $49–$699/mo self-serve.</p></div>
+<div class="glass"><h3>Legislative tracking &amp; bill AI <span class="pill p-ok">STRONG NICHE</span></h3><p>AI-summarized bill trajectories at state and federal level serve organizers AND campaigns AND civic educators. No dominant incumbent owns the grassroots-facing slice. Natural fit for an AI-first dev partner.</p></div>
+<div class="glass"><h3>Campaign SaaS portal <span class="pill p-warn">CONDITIONAL</span></h3><p>Proven entry exists — but meaningful reach requires voter-file partnerships, which are relationship-gated and take time. Viable as Phase 2 with the right alliances.</p></div>
+<div class="glass"><h3>Event &amp; rally engine <span class="pill p-warn">CROWDED</span></h3><p>Eventbrite-class platforms plus several conservative-focused competitors already exist. Differentiation would need to come from integration with the field toolkit, not standalone features.</p></div>
+<div class="glass"><h3>Donation pipeline <span class="pill p-bad">HIGH RISK</span></h3><p>Platform takes a cut of political donations outside the strict vendor safe-harbor = unreported corporate contribution under federal election law — a felony-level exposure. WinRed-class conduit models require heavy compliance infrastructure.</p></div>
+<div class="glass"><h3>Patriot marketplace <span class="pill p-bad">WEAK</span></h3><p>Disproven at scale by the market leader's own exit (PublicSquare). Payment-processor exposure compounds it: political merchants are a deplatforming-magnet category.</p></div>
+</div>
+</div></section>
+
+<section id="compliance"><div class="wrap">
+<span class="kicker">04 · Compliance reality</span>
+<h2>What a responsible build must respect</h2>
+<p class="lede">Political-adjacent platforms carry obligations most software doesn't. None of these are disqualifying — but each must be designed around deliberately, before code.</p>
+<div class="note n-bad"><span class="ic">⚖️</span><p><b>Donations:</b> the platform can legally touch political money only as a commercial vendor (usual-and-normal pricing, segregated forwarding, source screening), a conduit, or a contributor-side router. Free or under-priced services to committees can constitute corporate contributions. [needs bar opinion]</p></div>
+<div class="note n-bad"><span class="ic">📰</span><p><b>Incident reporting:</b> curated republication of user-submitted voting-irregularity claims can forfeit standard platform liability protections — the same fact pattern that produced the largest defamation verdicts in media history. Design mitigation exists (review queues, redaction, no auto-publication) but it must be architecture, not policy text. [needs bar opinion]</p></div>
+<div class="note n-warn"><span class="ic">🗺️</span><p><b>Field operations:</b> ballot-return rules vary sharply by state — legal in some, capped in others, felony exposure in at least one. Any ballot-collection feature must be state-gated by design. Geofenced telemetry near polling locations carries intimidation-statute exposure regardless of intent.</p></div>
+<div class="note n-warn"><span class="ic">📱</span><p><b>Distribution:</b> app stores require active content moderation from all platforms regardless of viewpoint; the workable posture is a real moderation policy plus a progressive-web-app fallback — which is proven precedent, not a compromise of principle.</p></div>
+<div class="note n-warn"><span class="ic">💳</span><p><b>Payments:</b> mainstream processors treat political fundraising as restricted. The realistic path is a dedicated high-risk merchant account — budgeting 3.5–6.5% + reserves — or structuring donation flows to avoid the platform touching funds at all.</p></div>
+<p class="small" style="margin-top:14px">Full citations in the underlying legal memo (statutes, FEC advisory opinions, processor terms, store policies). 13 items flagged where only qualified counsel can give the final word.</p>
+</div></section>
+
+<section id="improvements"><div class="wrap">
+<span class="kicker">05 · Improvement options</span>
+<h2>Ways to make the idea stronger</h2>
+<p class="lede">The concept's bones are good. These are concrete adjustments — drawn from what the data says actually works — that would materially raise its odds.</p>
+<ul class="clean">
+<li><b>Sequence the pillars instead of launching all six.</b> Every failed comparable launched broad and shallow. A defensible v1 is the field toolkit + bill-tracking AI: two underserved niches, no payment exposure, no moderation landmine, stores-friendly.</li>
+<li><b>Lead with the AI modules as the differentiator.</b> Bill summarization, privacy-preserving sentiment analytics, and route optimization are exactly what an AI-first partner can deliver that incumbent campaign vendors cannot — and they monetize as B2B SaaS without touching election law.</li>
+<li><b>Adopt a real moderation policy from day one.</b> The evidence is unambiguous: platforms removed for moderation failures were conservative-identifying, but the trigger was weak UGC governance. A published, consistently-applied policy is what keeps distribution alive — and it's compatible with viewpoint-neutral enforcement.</li>
+<li><b>Structure the org as 501(c)(4) parent + segregated political vehicle</b> — with the (c)(4) handling education/content and the segregated vehicle handling any election activity. Clean structure now prevents retroactive tax and regulator problems later. [needs bar opinion]</li>
+<li><b>Route donations through established conduits</b> (the WinRed/ActBlue model) instead of building payment rails. Zero felony exposure, zero merchant-account premiums, and the platform still earns via vendor-safe-harbor SaaS.</li>
+<li><b>Make the incident log private-by-default:</b> submissions go to named legal-organization recipients with timestamps and hashes preserved — evidence integrity without public republication. Preserves the civic value, removes the defamation exposure.</li>
+<li><b>Design for off-cycle survival.</b> The market demonstrably troughs in odd years (even the biggest player sheds ~30% of usage). Revenue mix must include non-election-cycle utility: civic education, legislative tracking, local government transparency.</li>
+<li><b>PWA-first with store apps later,</b> once moderation posture is proven. Discoverability is the cost; the precedent is established and it removes the platform-removal single-point-of-failure.</li>
+</ul>
+</div></section>
+
+<section id="verdict"><div class="wrap">
+<div class="verdict">
+<span class="ic">✅</span>
+<div>
+<b>RECOMMENDATION: CONDITIONAL GO — as specialist partner, not platform owner.</b>
+<p>The niche is real, the timing is viable, and the AI-integration angle is the strongest wedge. Proceed via paid discovery &amp; architecture audit, then build the two defensible pillars (field toolkit + bill AI) under contract structures that assign platform-level obligations to the platform's operating entity. Do not host payment rails, do not operate public incident republication, do not own forum moderation until governance infrastructure exists. Final structuring and feature-level legal questions go to qualified counsel before code ships.</p>
+</div>
+</div>
+</div></section>
+</main>
+
+<footer class="site"><div class="wrap">
+Independent research prepared October 2026 · Sources and full citations available in the underlying dossiers · Nothing herein is legal advice; flagged items require qualified counsel.
+</div></footer>
+</body>
+</html>
